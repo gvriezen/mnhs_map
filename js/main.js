@@ -6,7 +6,7 @@ window.onload = setMap();
 function setMap(){
 
 	 //map frame dimensions
-    var width = window.innerWidth * 0.6,
+    var width = 960,
         height = 460;
 
      //create new svg container for the map
@@ -31,24 +31,52 @@ function setMap(){
         .projection(projection);
 
 
-	var q = d3_queue.queue();
-	//queue
+// 	var q = d3_queue.queue();
+// 	//queue
+//     //use queue.js to parallelize asynchronous data loading
+//     q
+//         // .defer(d3.csv, "data/lab2data.csv") //load attributes from csv
+//         // .defer(d3.json, "data/countries.json") //load background spatial data
+//         .defer(d3.json, "data/usa.topojson") //load background spatial data
+//         .await(callback);
+
+// function callback(error, states){
+//        //translate north america TopoJSON
+//        //place graticule on map
+      
+//        console.log(states);
+    
+//         //translate us topojson
+//        var northAmerica = topojson.feature(states, states.objects.usa).features;
+
+// };
+
+
+var q = d3_queue.queue();
+    //queue
     //use queue.js to parallelize asynchronous data loading
     q
         // .defer(d3.csv, "data/lab2data.csv") //load attributes from csv
         // .defer(d3.json, "data/countries.json") //load background spatial data
-        .defer(d3.json, "data/usa.topojson") //load background spatial data
+        .defer(d3.json, "data/EuropeCountries.topojson") //load background spatial data
         .await(callback);
 
-function callback(error, states){
+function callback(error, europe){
        //translate north america TopoJSON
        //place graticule on map
       
-       console.log(states);
+       console.log(europe);
     
         //translate us topojson
-       var northAmerica = topojson.feature(states, states.objects.usa).features;
+       var europeCountries = topojson.feature(europe, europe.objects.EuropeCountries).features;
 
+        //add Europe countries to map
+        var countries = map.append("path")
+            .datum(europeCountries)
+            .attr("class", "countries")
+            .attr("d", path);
+
+    
 };
 
 }; //end of set map
