@@ -40,11 +40,15 @@ function setMap(){
         .defer(d3.json, "data/usa.topojson") //load background spatial data
         .await(callback);
 
-function callback(error, csvData, states){
+function callback(error, states){
        //translate north america TopoJSON
        //place graticule on map
+      
+       console.log(states);
     
         //translate us topojson
        var northAmerica = topojson.feature(states, states.objects.usa).features;
-}
+
+};
+
 }; //end of set map

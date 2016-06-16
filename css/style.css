@@ -1,6 +1,15 @@
 .map {
 	/*border: medium solid #fff;*/
 	/*margin: 10px 0 10px 20px;*/
-    margin-top: 45px;
-   
+/*	background-color: red;
+*/   
+}
+
+.siteTitle {
+    font-size: 24pt;
+    font-family: Garamond;
+    color:#ff4d4d;
+    position: absolute;
+    font-weight: bold;
+    text-align: center;
 }
