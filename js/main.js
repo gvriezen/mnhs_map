@@ -1,3 +1,4 @@
+//created by Grace Vriezen for WWI exhibit at Minnesota Historical Society
 //begin script when window loads
 window.onload = setMap();
 
@@ -13,7 +14,7 @@ function setMap(){
     var siteTitle = d3.select("body")
         .append("text")
         .attr("class", "siteTitle")
-        .html("Quality and Access of US Healthcare");
+        .html("Flow of Immigrants");
 
     var map = d3.select("body")
         .append("svg")
@@ -22,7 +23,7 @@ function setMap(){
         .attr("height", height);
 
     //create Albers equal area conic projection centered on France
-    var projection = d3.geo.albersUsa()
+    var projection = d3.geo.albers()
         .scale(900)
         .translate([width / 2, height / 2]);
 
@@ -34,6 +35,16 @@ function setMap(){
 	//queue
     //use queue.js to parallelize asynchronous data loading
     q
-        .defer(d3.csv, "data/lab2data.csv") //load attributes from csv
-        .defer(d3.json, "data/countries.json") //load background spatial data
+        // .defer(d3.csv, "data/lab2data.csv") //load attributes from csv
+        // .defer(d3.json, "data/countries.json") //load background spatial data
+        .defer(d3.json, "data/usa.topojson") //load background spatial data
         .await(callback);
+
+function callback(error, csvData, states){
+       //translate north america TopoJSON
+       //place graticule on map
+    
+        //translate us topojson
+       var northAmerica = topojson.feature(states, states.objects.usa).features;
+}
+}; //end of set map
