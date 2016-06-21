@@ -23,9 +23,11 @@ function setMap(){
         .attr("height", height);
 
     //create Albers equal area conic projection centered on France
-    var projection = d3.geo.albers()
-        .scale(900)
-        .translate([width / 2, height / 2]);
+    var projection = d3.geo.mercator()
+        .scale(120)
+        // .translate([width / 2, height / 2])
+        // .center([0,5]);
+        .translate([480,300]);
 
     var path = d3.geo.path()
         .projection(projection);
@@ -52,31 +54,43 @@ function setMap(){
 // };
 
 
-var q = d3_queue.queue();
-    //queue
-    //use queue.js to parallelize asynchronous data loading
-    q
-        // .defer(d3.csv, "data/lab2data.csv") //load attributes from csv
-        // .defer(d3.json, "data/countries.json") //load background spatial data
-        .defer(d3.json, "data/EuropeCountries.topojson") //load background spatial data
-        .await(callback);
+// var q = d3_queue.queue();
+//     //queue
+//     //use queue.js to parallelize asynchronous data loading
+//     q
+        
+//         .defer(d3.csv, "data/ww1_data.csv") // load immigration data
+//         .defer (d3.csv, "data/ww1_nodes.csv") // load nodes/centroids of countries
+//         .defer(d3.json, "data/world.topojson") //load background spatial data
+//         .await(callback);
 
-function callback(error, europe){
-       //translate north america TopoJSON
-       //place graticule on map
-      
-       console.log(europe);
+// function callback(error, csvData, nodes, earth){
+//        //place graticule on map
+//        // console.log(countries);
+//        // console.log(csvData);
+//        // console.log(nodes);
     
-        //translate us topojson
-       var europeCountries = topojson.feature(europe, europe.objects.EuropeCountries).features;
+//         //translate us topojson
+       // var allCountries = topojson.feature(world, world.objects.collection)
 
-        //add Europe countries to map
-        var countries = map.append("path")
-            .datum(europeCountries)
-            .attr("class", "countries")
-            .attr("d", path);
+//         //add countries to map
+//         var countries = map.append("path")
+//             .datum(allCountries)
+//             .attr("class", "countries")
+//             .attr("d", path);
 
-    
-};
+// };
+
+
+d3.json ("data/world.topojson", function (error, world) {
+    if (error) return console.error (error);
+    console.log(world);
+
+    map.append("path")
+    .datum(topojson.feature(world, world.objects.collection))
+    .attr("d", path);
+});
+
+
 
 }; //end of set map
