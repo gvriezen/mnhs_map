@@ -54,42 +54,51 @@ function setMap(){
 // };
 
 
-// var q = d3_queue.queue();
-//     //queue
-//     //use queue.js to parallelize asynchronous data loading
-//     q
+var q = d3_queue.queue();
+    //queue
+    //use queue.js to parallelize asynchronous data loading
+    q
         
-//         .defer(d3.csv, "data/ww1_data.csv") // load immigration data
-//         .defer (d3.csv, "data/ww1_nodes.csv") // load nodes/centroids of countries
-//         .defer(d3.json, "data/world.topojson") //load background spatial data
-//         .await(callback);
+        .defer(d3.csv, "data/ww1_data.csv") // load immigration data
+        .defer (d3.csv, "data/ww1_nodes.csv") // load nodes/centroids of countries
+        .defer(d3.json, "data/world.topojson") //load background spatial data
+        .await(callback);
 
-// function callback(error, csvData, nodes, earth){
-//        //place graticule on map
-//        // console.log(countries);
-//        // console.log(csvData);
-//        // console.log(nodes);
+function callback(error, csvData, nodes, world){
+       //place graticule on map
+       // console.log(countries);
+       // console.log(csvData);
+       // console.log(nodes);
     
-//         //translate us topojson
-       // var allCountries = topojson.feature(world, world.objects.collection)
+        //translate us topojson
+       var allCountries = topojson.feature(world, world.objects.collection).features;
 
-//         //add countries to map
-//         var countries = map.append("path")
-//             .datum(allCountries)
-//             .attr("class", "countries")
-//             .attr("d", path);
+        // //add countries to map
+        // var countries = map.append("path")
+        //     .datum(allCountries)
+        //     .attr("class", "countries")
+        //     .attr("d", path);
+            
+        var regions = map.selectAll(".regions")
+        .data(allCountries)
+        .enter()
+        .append("path")
+        .attr("class", function(d){
+            return "regions" + d.properties.name;
+        })
+        .attr("d", path);
 
-// };
+};
 
 
-d3.json ("data/world.topojson", function (error, world) {
-    if (error) return console.error (error);
-    console.log(world);
+// d3.json ("data/world.topojson", function (error, world) {
+//     if (error) return console.error (error);
+//     console.log(world);
 
-    map.append("path")
-    .datum(topojson.feature(world, world.objects.collection))
-    .attr("d", path);
-});
+//     map.append("path")
+//     .datum(topojson.feature(world, world.objects.collection))
+//     .attr("d", path);
+// });
 
 
 
