@@ -24,13 +24,15 @@ function setMap(){
 
     //create Albers equal area conic projection centered on France
     var projection = d3.geo.mercator()
-        .scale(120)
+        .scale(150)
         // .translate([width / 2, height / 2])
         // .center([0,5]);
-        .translate([480,300]);
+        .translate([450,400]);
 
     var path = d3.geo.path()
         .projection(projection);
+
+
 
 
 // 	var q = d3_queue.queue();
@@ -73,12 +75,12 @@ function callback(error, csvData, nodes, world){
         //translate us topojson
        var allCountries = topojson.feature(world, world.objects.collection).features;
 
-        // //add countries to map
-        // var countries = map.append("path")
-        //     .datum(allCountries)
-        //     .attr("class", "countries")
-        //     .attr("d", path);
-            
+        //add countries to map
+        var countries = map.append("path")
+            .datum(allCountries)
+            .attr("class", "countries")
+            .attr("d", path);
+
         var regions = map.selectAll(".regions")
         .data(allCountries)
         .enter()

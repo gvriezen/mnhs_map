@@ -1,21 +1,93 @@
 .map {
-	border: medium solid #fff;
-	margin: 10px 0 10px 20px;
-/*	background-color: red;
-*/   
+	border: medium solid #000;
+	margin: 70px;
+	background-color: #d1d1e0;
+
 }
 
 .siteTitle {
     font-size: 24pt;
     font-family: Garamond;
-    color:#ff4d4d;
+    color:#000;
     position: absolute;
     font-weight: bold;
+    margin: 20px;
+    padding: 10px;
     text-align: center;
 }
 
-.countries{
+.regions{
 	fill: red;
 	stroke: black;
 	stroke-width: 2px;
 }
+
+.regionsUnited.Kingdom {
+    fill: green;
+
+}
+
+.regionsIreland {
+    fill: green;
+}
+
+.regionsGermany {
+    fill: green;
+}
+
+.regionsPoland {
+    fill: green;
+}
+
+.regionsGreece{
+    fill: green;
+}
+
+.regionsItaly {
+    fill: green;
+}
+
+.regionsPortugal {
+    fill: green;
+}
+
+.regionsSpain {
+    fill: green;
+}
+
+.regionsChina {
+    fill: green;
+}
+
+.regionsIndia{
+    fill: green;
+}
+
+.regionsJapan {
+    fill: green;
+}
+
+.regionsTurkey {
+    fill: green;
+}
+
+.regionsCanada {
+    fill: green;
+}
+
+.regionsMexico {
+    fill: green;
+}
+
+.regionsUnited.States.of.America {
+    fill: white;
+}
+
+
+
+
+
+
+
+
+
