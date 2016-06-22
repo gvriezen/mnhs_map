@@ -1,4 +1,10 @@
 //created by Grace Vriezen for WWI exhibit at Minnesota Historical Society
+
+// //global variables
+// (function (){
+//     var attrArray = ["1880","1881","1882","1883","1884","1885","1886","1887","1888","1889","1890","1891","1892","1893","1894","1895","1896","1897","1898","1899","1900","1901","1902","1903","1904","1905","1906","1907","1908","1909","1910","1911","1912","1913","1914","1915","1916","1917","1918","1919","1920"];
+//     var expressed = attrArray[0]; // initial attribute
+// })
 //begin script when window loads
 window.onload = setMap();
 
@@ -31,8 +37,6 @@ function setMap(){
 
     var path = d3.geo.path()
         .projection(projection);
-
-
 
 
 // 	var q = d3_queue.queue();
@@ -74,6 +78,7 @@ function callback(error, csvData, nodes, world){
     
         //translate us topojson
        var allCountries = topojson.feature(world, world.objects.collection).features;
+       // .features /// add this to manipulate individual countries
 
         //add countries to map
         var countries = map.append("path")
@@ -90,7 +95,37 @@ function callback(error, csvData, nodes, world){
         })
         .attr("d", path);
 
+        //centroids
+        var centroids = map.append("g")
+        .attr("class", "centroids");
+
+        //arcs
+        var arcs = map.append("g")
+        .attr("class", "centroids");
+
 };
+
+//nodes and links 
+
+
+//define colors of arcs
+var colors = ["#000", "#fff"];
+
+//define arc width 
+var arcWidth = d3.scale.linear()
+    .domain([1,25])
+    .range([0, 35000]);
+
+// define fill color 
+var fillColor = d3.scale.linear ()
+    .range(colors)
+    .domain();
+//d3 format decimals
+var f = d3.format(".1f");
+//tooltips
+var tooltip = d3.select("body")
+    .append("div")
+    .attr("class", "tooltip")
 
 
 // d3.json ("data/world.topojson", function (error, world) {
@@ -105,3 +140,22 @@ function callback(error, csvData, nodes, world){
 
 
 }; //end of set map
+
+function nodeCoordinates (node) {
+    var long = parseFloat(node.long),
+        lat = parseFloat(node.lat);
+        return [long, lat];
+}
+
+
+// join csv to spatial data
+// animate lines
+// update flow arrows on click/slide
+// create timeline
+// add supporting info regarding legislation
+
+
+
+
+
+

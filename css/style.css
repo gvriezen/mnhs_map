@@ -1,8 +1,10 @@
 .map {
 	border: medium solid #000;
 	margin: 70px;
-	background-color: #d1d1e0;
+	/*background-color: #d1d1e0;
 
+*/
+    background-color: white;
 }
 
 .siteTitle {
@@ -16,73 +18,77 @@
     text-align: center;
 }
 
-.regions{
-	fill: red;
-	stroke: black;
-	stroke-width: 2px;
+.regions {
+    fill: none;
 }
 
+/*.countries{
+	fill: grey;
+	stroke: white;
+	stroke-width: 0.5px;
+}*/
+
 .regionsUnited.Kingdom {
-    fill: green;
+    fill: grey;
 
 }
 
 .regionsIreland {
-    fill: green;
+    fill: grey;
 }
 
 .regionsGermany {
-    fill: green;
+    fill: grey;
 }
 
 .regionsPoland {
-    fill: green;
+    fill: grey;
 }
 
 .regionsGreece{
-    fill: green;
+    fill: grey;
 }
 
 .regionsItaly {
-    fill: green;
+    fill: grey;
 }
 
 .regionsPortugal {
-    fill: green;
+    fill: grey;
 }
 
 .regionsSpain {
-    fill: green;
+    fill: grey;
 }
 
 .regionsChina {
-    fill: green;
+    fill: grey;
 }
 
 .regionsIndia{
-    fill: green;
+    fill: grey;
 }
 
 .regionsJapan {
-    fill: green;
+    fill: grey;
 }
 
 .regionsTurkey {
-    fill: green;
+    fill: grey;
 }
 
 .regionsCanada {
-    fill: green;
+    fill: grey;
 }
 
 .regionsMexico {
-    fill: green;
+    fill: grey;
 }
 
-.regionsUnited.States.of.America {
+/*.regionsUnited.States.of.America {
     fill: white;
 }
-
+*/
 
 
 
