@@ -126,6 +126,38 @@ var f = d3.format(".1f");
 var tooltip = d3.select("body")
     .append("div")
     .attr("class", "tooltip")
+//g 
+var g = map.append("g");
+
+}; // end of set map 
+
+// join csv data to json data
+
+function joinData (csvData, nodes, world) {
+
+
+    for (var i = 0; i < csvData.length; i++) {
+        var dataName = csvData[i]; // current region
+        var csvKey = dataName.name; // csv primary key
+    // loop through to find correct country
+    for (var a=0; a<world.length; a++) {
+        var geojsonProps = world[a].properties;
+        var geojsonKey = geojsonProps.name; // geojson primary key
+    //where primary keys match, transfer csv data to geojson prop object
+    if (geojsonKey == csvKey) {
+        attrArray.forEach(function(attr) {
+            var val = parseFloat(dataName[attr]); // get csv attr value
+            geojsonProps[attr] = val; // assign attribute and value to geojson properties
+        });
+    };
+};
+};
+
+return allCountries; 
+
+};
+
+
 
 
 // d3.json ("data/world.topojson", function (error, world) {
@@ -139,17 +171,17 @@ var tooltip = d3.select("body")
 
 
 
-}; //end of set map
 
-function nodeCoordinates (node) {
-    var long = parseFloat(node.long),
-        lat = parseFloat(node.lat);
-        return [long, lat];
-}
+
+// function nodeCoordinates (node) {
+//     var long = parseFloat(node.long),
+//         lat = parseFloat(node.lat);
+//         return [long, lat];
+// }
 
 
 // join csv to spatial data
-// animate lines
+// animate lines w/ stroke dash interpolation
 // update flow arrows on click/slide
 // create timeline
 // add supporting info regarding legislation
