@@ -1,10 +1,11 @@
 .map {
 	border: medium solid #000;
-	margin: 70px;
-	/*background-color: #d1d1e0;
-
-*/
+	background-color: #d1d1e0;
     background-color: white;
+    margin: 10px;
+
+
+
 }
 
 .siteTitle {
@@ -18,77 +19,98 @@
     text-align: center;
 }
 
-.regions {
-    fill: none;
-}
-
-/*.countries{
-	fill: grey;
-	stroke: white;
-	stroke-width: 0.5px;
+/*.regions {
+    fill: transparent;
 }*/
 
+.countries{
+	fill: none;
+	stroke: black;
+	stroke-width: 0.3px;
+}
+
 .regionsUnited.Kingdom {
-    fill: grey;
+    fill: green;
 
 }
 
 .regionsIreland {
-    fill: grey;
+    fill: green;
 }
 
 .regionsGermany {
-    fill: grey;
+    fill: green;
 }
 
 .regionsPoland {
-    fill: grey;
+    fill: green;
 }
 
 .regionsGreece{
-    fill: grey;
+    fill: green;
 }
 
 .regionsItaly {
-    fill: grey;
+    fill: green;
 }
 
 .regionsPortugal {
-    fill: grey;
+    fill: green;
 }
 
 .regionsSpain {
-    fill: grey;
+    fill: green;
 }
 
 .regionsChina {
-    fill: grey;
+    fill: green;
 }
 
 .regionsIndia{
-    fill: grey;
+    fill: green;
 }
 
 .regionsJapan {
-    fill: grey;
+    fill: green;
 }
 
 .regionsTurkey {
-    fill: grey;
+    fill: green;
 }
 
 .regionsCanada {
-    fill: grey;
+    fill: green;
 }
 
 .regionsMexico {
-    fill: grey;
+    fill: green;
 }
 
 /*.regionsUnited.States.of.America {
     fill: white;
 }
 */
+
+/*timline styling*/
+.timeline {
+ background-color: #d1d1e0;
+ margin: 10px;
+
+}
+
+.timelinetitle {
+/*    align: center;
+*/  font-family: Garamond;
+    color: red;
+    font-size: 25pt;
+}
+
+/*.timelineFrame {
+    fill: white;
+}*/
+.xaxis {
+    z-index: 9000;
+}
 
 
 

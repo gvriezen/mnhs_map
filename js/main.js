@@ -1,10 +1,19 @@
 //created by Grace Vriezen for WWI exhibit at Minnesota Historical Society
 
 // //global variables
-// (function (){
+(function (){
 //     var attrArray = ["1880","1881","1882","1883","1884","1885","1886","1887","1888","1889","1890","1891","1892","1893","1894","1895","1896","1897","1898","1899","1900","1901","1902","1903","1904","1905","1906","1907","1908","1909","1910","1911","1912","1913","1914","1915","1916","1917","1918","1919","1920"];
 //     var expressed = attrArray[0]; // initial attribute
-// })
+
+var timelineWidth = window.innerWidth * 0.6,
+    timelineHeight = 200,
+    leftPadding = 5,
+    rightPadding = 5,
+    topBottomPadding = 5,
+    timelineInnerWidth = timelineWidth - leftPadding,
+    timelineInnerHeight = timelineHeight - topBottomPadding * 2,
+    translate = "translate( " + leftPadding + "," + topBottomPadding + ")";
+   
 //begin script when window loads
 window.onload = setMap();
 
@@ -12,7 +21,7 @@ window.onload = setMap();
 function setMap(){
 
 	 //map frame dimensions
-    var width = 960,
+    var width = window.innerWidth * 0.6,
         height = 460;
 
      //create new svg container for the map
@@ -38,28 +47,6 @@ function setMap(){
     var path = d3.geo.path()
         .projection(projection);
 
-
-// 	var q = d3_queue.queue();
-// 	//queue
-//     //use queue.js to parallelize asynchronous data loading
-//     q
-//         // .defer(d3.csv, "data/lab2data.csv") //load attributes from csv
-//         // .defer(d3.json, "data/countries.json") //load background spatial data
-//         .defer(d3.json, "data/usa.topojson") //load background spatial data
-//         .await(callback);
-
-// function callback(error, states){
-//        //translate north america TopoJSON
-//        //place graticule on map
-      
-//        console.log(states);
-    
-//         //translate us topojson
-//        var northAmerica = topojson.feature(states, states.objects.usa).features;
-
-// };
-
-
 var q = d3_queue.queue();
     //queue
     //use queue.js to parallelize asynchronous data loading
@@ -77,8 +64,12 @@ function callback(error, csvData, nodes, world){
        // console.log(nodes);
     
         //translate us topojson
-       var allCountries = topojson.feature(world, world.objects.collection).features;
+       var allCountries = topojson.feature(world, world.objects.collection);
        // .features /// add this to manipulate individual countries
+
+       // set to join data
+
+       // allCountries = joinData (world, csvData);
 
         //add countries to map
         var countries = map.append("path")
@@ -86,14 +77,14 @@ function callback(error, csvData, nodes, world){
             .attr("class", "countries")
             .attr("d", path);
 
-        var regions = map.selectAll(".regions")
-        .data(allCountries)
-        .enter()
-        .append("path")
-        .attr("class", function(d){
-            return "regions" + d.properties.name;
-        })
-        .attr("d", path);
+        // var regions = map.selectAll(".regions")
+        // .data(allCountries)
+        // .enter()
+        // .append("path")
+        // .attr("class", function(d){
+        //     return "regions" + d.properties.name;
+        // })
+        // .attr("d", path);
 
         //centroids
         var centroids = map.append("g")
@@ -102,6 +93,9 @@ function callback(error, csvData, nodes, world){
         //arcs
         var arcs = map.append("g")
         .attr("class", "centroids");
+
+        // joinData(csvData, nodes, world);
+        createTimeline (csvData);
 
 };
 
@@ -133,45 +127,30 @@ var g = map.append("g");
 
 // join csv data to json data
 
-function joinData (csvData, nodes, world) {
+// function joinData (csvData, allCountries) {
 
 
-    for (var i = 0; i < csvData.length; i++) {
-        var dataName = csvData[i]; // current region
-        var csvKey = dataName.name; // csv primary key
-    // loop through to find correct country
-    for (var a=0; a<world.length; a++) {
-        var geojsonProps = world[a].properties;
-        var geojsonKey = geojsonProps.name; // geojson primary key
-    //where primary keys match, transfer csv data to geojson prop object
-    if (geojsonKey == csvKey) {
-        attrArray.forEach(function(attr) {
-            var val = parseFloat(dataName[attr]); // get csv attr value
-            geojsonProps[attr] = val; // assign attribute and value to geojson properties
-        });
-    };
-};
-};
+//     for (var i = 0; i < csvData.length; i++) {
+//         var dataName = csvData[i]; // current region
+//         var csvKey = dataName.name; // csv primary key
+//     // loop through to find correct country
+//     for (var a=0; a<world.length; a++) {
+//         var geojsonProps = world[a].properties;
+//         var geojsonKey = geojsonProps.name; // geojson primary key
+//     //where primary keys match, transfer csv data to geojson prop object
+//     if (geojsonKey == csvKey) {
+//         attrArray.forEach(function(attr) {
+//             var val = parseFloat(dataName[attr]); // get csv attr value
+//             geojsonProps[attr] = val; // assign attribute and value to geojson properties
+//         });
+//     };
+// };
+// };
 
-return allCountries; 
-
-};
+// return allCountries; 
 
 
-
-
-// d3.json ("data/world.topojson", function (error, world) {
-//     if (error) return console.error (error);
-//     console.log(world);
-
-//     map.append("path")
-//     .datum(topojson.feature(world, world.objects.collection))
-//     .attr("d", path);
-// });
-
-
-
-
+// };
 
 // function nodeCoordinates (node) {
 //     var long = parseFloat(node.long),
@@ -183,8 +162,77 @@ return allCountries;
 // join csv to spatial data
 // animate lines w/ stroke dash interpolation
 // update flow arrows on click/slide
+
 // create timeline
+
+function createTimeline () {
+
+    var timeline = d3.select("body")
+        .append("svg")
+        .attr("width", timelineWidth)
+        .attr("height", timelineHeight)
+        .attr("class", "timeline");
+
+    // var timelineFrame = timeline.append("rect")
+    //     .attr("class", "timelineFrame")
+    //     .attr("width", timelineWidth)
+    //     .attr("height", timelineHeight)
+    //     .attr("transform", translate);
+
+    var timlineTitle = timeline.append("text")
+        .attr("x", 40)
+        .attr("y", 20)
+        .attr("class", "timelinetitle")
+        .html("Immigration During WWI");
+
+    //create axis
+    //create scale for axis
+
+    var mindate = new Date("1875"),
+        maxdate = new Date("1925");
+
+    var xScale = d3.time.scale()
+        .domain([mindate, maxdate])
+        .range([0, timelineWidth]);
+
+            // d3.time.scale()
+    //     .domain([1800, 1920])
+    //     .range([0, timelineWidth]);
+     
+// create axis line
+
+    var xAxis = d3.svg.axis()
+        .scale(xScale)
+        .orient("bottom")
+        .tickFormat(d3.time.format("%Y"))
+        .ticks(10)
+        .tickSize(5);
+        // .tickPadding(8);
+
+   //create svg container
+
+    var line = d3.select("body")
+        .append("svg")
+        .attr("width", timelineWidth + leftPadding * 2)
+        .attr("height", timelineHeight + topBottomPadding * 2)
+        .attr("transform", translate)
+        .attr("class", "axis");
+
+    timeline.append("svg")
+        .attr("class", "xaxis")
+        .attr("transform", "translate(0," + (timelineHeight - leftPadding )+ ")")
+        .call(xAxis)
+        .attr("x", 0)
+        .attr("y", 0);
+
+
 // add supporting info regarding legislation
+
+        
+
+};
+})(); // end of global function
+
 
 
 
